@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>{{ pokemon.name }} Details</title>
@@ -15,41 +15,44 @@
         <p><strong>Height:</strong> {{ pokemon.height }}</p>
         <p><strong>Weight:</strong> {{ pokemon.weight }}</p>
       </div>
+
       <!-- Chart container -->
       <div class="pokemon-stats">
-        <canvas id="statsChart"></canvas>
+        <canvas id="statsChart" width="400" height="200"></canvas>
       </div>
+
       <p><a href="{{ url_for('index') }}">Back to all Pokémon</a></p>
     </div>
 
-    <!-- Include Chart.js from a CDN -->
+    <!-- Include Chart.js from CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-      // Convert Python lists to JavaScript arrays using Jinja's tojson filter
-      const statNames = {{ pokemon.stat_names | tojson }};
-      const statValues = {{ pokemon.stat_values | tojson }};
+      document.addEventListener('DOMContentLoaded', function () {
+        const statNames = { pokemon,stat_names , tojson , safe };
+        const statValues = { pokemon,stat_values , tojson , safe };
 
-      // Create a bar chart to display the Pokémon's base stats
-      const ctx = document.getElementById('statsChart').getContext('2d');
-      const statsChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: statNames,
-          datasets: [{
-            label: 'Base Stats',
-            data: statValues,
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
+        const ctx = document.getElementById('statsChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: statNames,
+            datasets: [{
+              label: 'Base Stats',
+              data: statValues,
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: true
+              }
             }
           }
-        }
+        });
       });
     </script>
   </body>
