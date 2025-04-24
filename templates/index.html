@@ -2,13 +2,13 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>First 150 Pokémon</title>
+    <title>The Only Good Ones</title>
     <!-- Link to your CSS stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
   </head>
   <body>
     <div class="container">
-      <h1>First 150 Pokémon</h1>
+      <h1>Gen 1 Pokedex</h1>
       <div class="card-container">
         <!-- Loop through each Pokémon and wrap each card in a link -->
         {% for pokemon in pokemons %}
