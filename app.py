@@ -10,9 +10,6 @@ def index():
     response = requests.get("https://pokeapi.co/api/v2/pokemon?limit=1025")
     pokemondata = response.json()
     pokemon_list = pokemondata['results']
-    response = requests.get("https://pokeapi.co/api/v2/move?limit=937")
-    movedata = response.json()
-    move_list = movedata['results']
 
     # We create a list to store details for each Pokémon.
     pokemons = []
@@ -45,7 +42,10 @@ def pokemon_detail(id):
     # We extract extra details like types, height, weight, and stats.
     types = [t['type']['name'] for t in pokemondata['types']]
     height = pokemondata.get('height')
+    height = height/10
     weight = pokemondata.get('weight')
+    weight = weight/10
+    abilities = [a['ability']['name'] for a in pokemondata['abilities']]
     name = pokemondata.get('name').capitalize()
     image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png"
     
@@ -61,6 +61,7 @@ def pokemon_detail(id):
         'types': types,
         'height': height,
         'weight': weight,
+        'ability': abilities,
         'stat_names': stat_names,
         'stat_values': stat_values
     })

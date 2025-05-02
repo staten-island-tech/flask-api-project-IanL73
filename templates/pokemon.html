@@ -2,18 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>{{ pokemon.id }} Details</title>
+    <title>{{ pokemon.name }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
   </head>
   <body>
     <div class="container">
-      <h1>{{ pokemon.id }} Details</h1>
+      <h1>{{ pokemon.name }}</h1>
       <div class="pokemon-detail">
         <img src="{{ pokemon.image }}" alt="{{ pokemon.name }}" />
         <p><strong>ID:</strong> {{ pokemon.name }}</p>
         <p><strong>Types:</strong> {{ pokemon.types | join(', ') }}</p>
-        <p><strong>Height:</strong> {{ pokemon.height }}</p>
-        <p><strong>Weight:</strong> {{ pokemon.weight }}</p>
+        <p><strong>Height:</strong> {{ pokemon.height }} m</p>
+        <p><strong>Weight:</strong> {{ pokemon.weight }} kg</p>
+        <p><strong>Abilities:</strong> {{ pokemon.abilities | join(', ')}}</p>
       </div>
 
       <!-- Chart container -->
@@ -28,8 +29,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        const statNames = { pokemon,stat_names , tojson , safe };
-        const statValues = { pokemon,stat_values , tojson , safe };
+        const statNames = {{ pokemon.stat_names | tojson | safe }};
+const statValues = {{ pokemon.stat_values | tojson | safe }};
 
         const ctx = document.getElementById('statsChart').getContext('2d');
         new Chart(ctx, {

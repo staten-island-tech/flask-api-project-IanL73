@@ -1,7 +1,7 @@
 /* General page styling */
 body {
     font-family: Arial, sans-serif;
-    background-color: #353431;
+    background-color: #b6b3ac;
     margin: 0;
     padding: 0;
   }
@@ -70,7 +70,7 @@ body {
   
   /* Card text styling */
   .card-text {
-    color: #798512;
+    color: #232701;
     margin-top: 5px;
   }
   
