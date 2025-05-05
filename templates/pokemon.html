@@ -11,10 +11,27 @@
       <div class="pokemon-detail">
         <img src="{{ pokemon.image }}" alt="{{ pokemon.name }}" />
         <p><strong>ID:</strong> {{ pokemon.name }}</p>
-        <p><strong>Types:</strong> {{ pokemon.types | join(', ') }}</p>
+        <p><strong>Types:</strong> {{ pokemon.types | join(' | ') }}</p>
         <p><strong>Height:</strong> {{ pokemon.height }} m</p>
         <p><strong>Weight:</strong> {{ pokemon.weight }} kg</p>
-        <p><strong>Abilities:</strong> {{ pokemon.abilities | join(', ')}}</p>
+        <p><strong>Abilities:</strong> {{ pokemon.abilities | join(' | ')}}</p>
+        <h2>Moves</h2>
+<div class="container text-center">
+  <div class="row">
+    {% for move in pokemon.moves %}
+      <div class="col">
+        {{ move }}
+      </div>
+      <div class="col">
+        {{ move }}
+      </div>
+      {% if loop.index % 3 == 0 %}
+        </div><div class="row">
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
       </div>
 
       <!-- Chart container -->
@@ -56,5 +73,8 @@ const statValues = {{ pokemon.stat_values | tojson | safe }};
         });
       });
     </script>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

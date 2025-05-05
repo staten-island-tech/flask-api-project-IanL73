@@ -41,11 +41,16 @@ def pokemon_detail(id):
     
     # We extract extra details like types, height, weight, and stats.
     types = [t['type']['name'] for t in pokemondata['types']]
+    types = [type.capitalize() for type in types]
     height = pokemondata.get('height')
     height = height/10
     weight = pokemondata.get('weight')
     weight = weight/10
     abilities = [a['ability']['name'] for a in pokemondata['abilities']]
+    abilities = [ability.capitalize() for ability in abilities]
+    moves = [m['move']['name'] for m in pokemondata['moves']]
+    moves = [move.replace("-"," ") for move in moves]
+    moves = [move.title() for move in moves]
     name = pokemondata.get('name').capitalize()
     image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png"
     
@@ -55,6 +60,7 @@ def pokemon_detail(id):
     
     # We tell Flask to show the 'pokemon.html' page with all these details.
     return render_template("pokemon.html", pokemon={
+        'abilities': abilities,
         'name': name,
         'id': id,
         'image': image_url,
@@ -62,6 +68,7 @@ def pokemon_detail(id):
         'height': height,
         'weight': weight,
         'ability': abilities,
+        'moves': moves,
         'stat_names': stat_names,
         'stat_values': stat_values
     })
