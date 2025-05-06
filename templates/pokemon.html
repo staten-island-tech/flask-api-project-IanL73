@@ -16,21 +16,24 @@
         <p><strong>Weight:</strong> {{ pokemon.weight }} kg</p>
         <p><strong>Abilities:</strong> {{ pokemon.abilities | join(' | ')}}</p>
         <h2>Moves</h2>
-<div class="container text-center">
-  <div class="row">
-    {% for move in pokemon.moves %}
-      <div class="col">
-        {{ move }}
-      </div>
-      <div class="col">
-        {{ move }}
-      </div>
-      {% if loop.index % 3 == 0 %}
-        </div><div class="row">
-      {% endif %}
-    {% endfor %}
-  </div>
-</div>
+        <table border="1" cellpadding="8" cellspacing="0">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Move Name</th>
+              <th>Your Mom</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for move in pokemon.moves %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ move }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        
 
       </div>
 
@@ -71,7 +74,24 @@ const statValues = {{ pokemon.stat_values | tojson | safe }};
             }
           }
         });
-      });
+        <table border="1">
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>City</th>
+  </tr>
+  <tr>
+    <td>Alice</td>
+    <td>30</td>
+    <td>New York</td>
+  </tr>
+  <tr>
+    <td>Bob</td>
+    <td>25</td>
+    <td>Chicago</td>
+  </tr>
+</table>
+
     </script>
         </div>
       </div>

@@ -16,9 +16,10 @@ def index():
     
     for pokemon in pokemon_list:
         # Each Pokémon has a URL like "https://pokeapi.co/api/v2/pokemon/1/"
-        url = pokemon['url']
-        parts = url.strip("/").split("/")
-        id = parts[-1]  # The last part of the URL is the Pokémon's ID
+        pokeurl = pokemon['url']
+        parts = pokeurl.strip("/").split("/")
+        pid = parts[-1]  # The last part of the URL is the Pokémon's ID
+
         
         # We use the ID to build an image URL.
         image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png"
@@ -48,9 +49,10 @@ def pokemon_detail(id):
     weight = weight/10
     abilities = [a['ability']['name'] for a in pokemondata['abilities']]
     abilities = [ability.capitalize() for ability in abilities]
-    moves = [m['move']['name'] for m in pokemondata['moves']]
-    moves = [move.replace("-"," ") for move in moves]
-    moves = [move.title() for move in moves]
+    moveset = [m['move']['name'] for m in pokemondata['moves']]
+    moveset = [move.replace("-"," ") for move in moves]
+    moveset = [move.title() for move in moves]
+    moveurls = [u['move']['url'] for u in moves]
     name = pokemondata.get('name').capitalize()
     image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png"
     
@@ -68,9 +70,10 @@ def pokemon_detail(id):
         'height': height,
         'weight': weight,
         'ability': abilities,
-        'moves': moves,
+        'moves': moveset,
         'stat_names': stat_names,
         'stat_values': stat_values
+        'moveurls': moveurls
     })
 
 if __name__ == '__main__':

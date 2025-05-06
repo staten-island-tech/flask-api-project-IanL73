@@ -95,3 +95,20 @@ body {
     max-width: 600px;
     margin: 40px auto;
   }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+  }
+  
+  th, td {
+    border: 1px solid #ccc;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
