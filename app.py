@@ -18,7 +18,7 @@ def index():
         # Each Pokémon has a URL like "https://pokeapi.co/api/v2/pokemon/1/"
         pokeurl = pokemon['url']
         parts = pokeurl.strip("/").split("/")
-        pid = parts[-1]  # The last part of the URL is the Pokémon's ID
+        id = parts[-1]  # The last part of the URL is the Pokémon's ID
 
         
         # We use the ID to build an image URL.
@@ -26,7 +26,7 @@ def index():
         
         pokemons.append({
             'name': pokemon['name'].title(),
-            'id': pid,
+            'id': id,
             'image': image_url
         })
     
@@ -35,9 +35,9 @@ def index():
 
 # Route for the Pokémon details page
 @app.route("/pokemon/<int:id>")
-def pokemon_detail(pid):
+def pokemon_detail(id):
     # We get detailed info for a specific Pokémon using its id.
-    response = requests.get(f"https://pokeapi.co/api/v2/pokemon/{pid}")
+    response = requests.get(f"https://pokeapi.co/api/v2/pokemon/{id}")
     pokemondata = response.json()
     
     # We extract extra details like types, height, weight, and stats.
@@ -52,7 +52,7 @@ def pokemon_detail(pid):
     moveset = [m['move']['name'] for m in pokemondata['moves']]
     moveset = [move.replace("-"," ") for move in moveset]
     moveset = [move.title() for move in moveset]
-    moveurls = [u['move']['url'] for u in moveset]
+    moveurls = [u['move']['url'] for u in pokemondata['moves']]
     name = pokemondata.get('name').capitalize()
     image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png"
     
@@ -72,8 +72,8 @@ def pokemon_detail(pid):
         'ability': abilities,
         'moves': moveset,
         'stat_names': stat_names,
-        'stat_values': stat_values
-        'moveurls': moveurls })
+        'stat_values': stat_values,
+        'moveurls': moveurls, })
 
 if __name__ == '__main__':
     app.run(debug=True)
