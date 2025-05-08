@@ -50,9 +50,9 @@ def pokemon_detail(id):
     abilities = [a['ability']['name'] for a in pokemondata['abilities']]
     abilities = [ability.capitalize() for ability in abilities]
     moveset = [m['move']['name'] for m in pokemondata['moves']]
-    moveset = [move.replace("-"," ") for move in moves]
-    moveset = [move.title() for move in moves]
-    moveurls = [u['move']['url'] for u in moves]
+    moveset = [move.replace("-"," ") for move in moveset]
+    moveset = [move.title() for move in moveset]
+    moveurls = [u['move']['url'] for u in moveset]
     name = pokemondata.get('name').capitalize()
     image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png"
     
@@ -73,8 +73,7 @@ def pokemon_detail(id):
         'moves': moveset,
         'stat_names': stat_names,
         'stat_values': stat_values
-        'moveurls': moveurls
-    })
+        'moveurls': moveurls })
 
 if __name__ == '__main__':
     app.run(debug=True)
