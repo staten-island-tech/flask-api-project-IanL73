@@ -26,7 +26,7 @@ def index():
         
         pokemons.append({
             'name': pokemon['name'].title(),
-            'id': id,
+            'id': pid,
             'image': image_url
         })
     
@@ -35,9 +35,9 @@ def index():
 
 # Route for the Pokémon details page
 @app.route("/pokemon/<int:id>")
-def pokemon_detail(id):
+def pokemon_detail(pid):
     # We get detailed info for a specific Pokémon using its id.
-    response = requests.get(f"https://pokeapi.co/api/v2/pokemon/{id}")
+    response = requests.get(f"https://pokeapi.co/api/v2/pokemon/{pid}")
     pokemondata = response.json()
     
     # We extract extra details like types, height, weight, and stats.
