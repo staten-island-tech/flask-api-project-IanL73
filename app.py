@@ -52,8 +52,9 @@ def pokemon_detail(id):
     moveset = [m['move']['name'] for m in pokemondata['moves']]
     moveset = [move.replace("-"," ") for move in moveset]
     moveset = [move.title() for move in moveset]
-    moveurls = [u['move']['url'] for u in pokemondata['moves']]
     name = pokemondata.get('name').capitalize()
+    name = name.replace("-"," ")
+    name = name.title()
     image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png"
     
     # Get the Pokémon’s base stats (like hp, attack, defense, etc.)
@@ -73,7 +74,7 @@ def pokemon_detail(id):
         'moves': moveset,
         'stat_names': stat_names,
         'stat_values': stat_values,
-        'moveurls': moveurls, })
+})
 
 if __name__ == '__main__':
     app.run(debug=True)
