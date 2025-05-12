@@ -48,7 +48,7 @@ body {
   
   /* Hover effect for cards */
   .card:hover {
-    transform: scale(1.05);
+    transform: scale(2);
   }
   
   /* Card image styling */
