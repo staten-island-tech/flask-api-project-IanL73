@@ -49,12 +49,13 @@ def pokemon_detail(id):
     weight = weight/10
     abilities = [a['ability']['name'] for a in pokemondata['abilities']]
     abilities = [ability.capitalize() for ability in abilities]
-    moveset = [ {
+    """ moveset = [ {
         'movename': thing or whatever
         'movetype': etc etc this is all placeholder
     },  {
-        'movename'
-    },  {}
+        
+    },  {} """
+    moveset = [m['move']['name'] for m in pokemondata['moves']]
     moveset = [move.replace("-"," ") for move in moveset]
     moveset = [move.title() for move in moveset]
     name = pokemondata.get('name').capitalize()
