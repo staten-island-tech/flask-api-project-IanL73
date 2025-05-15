@@ -49,6 +49,11 @@ def pokemon_detail(id):
     weight = weight/10
     abilities = [a['ability']['name'] for a in pokemondata['abilities']]
     abilities = [ability.capitalize() for ability in abilities]
+    moveset = {}
+    for i in pokemondata['moves']:
+        moveset[i] = i['move']['name']
+        moveset[i] = i['move']['url']
+    print
     """ moveset = [ {
         'movename': thing or whatever
         'movetype': etc etc this is all placeholder
