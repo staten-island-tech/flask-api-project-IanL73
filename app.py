@@ -42,14 +42,39 @@ def index():
 
 @app.route("/answer", methods=["POST"])
 def answer():
-    user_answer = request.form["answer"].capitalize()
-    correct_answer = request.form["correct_answer"]
-    if user_answer == correct_answer:
-        result = "Correct!"
+    user_answer = request.form['answer']
+    question = request.form['question']
+    correct_answer = request.form['correct_answer']
+    pokemon_name = request.form['pokemon']
+
+    is_correct = user_answer.strip().lower() == correct_answer.strip().lower()
+    feedback = "Correct!" if is_correct else f"Incorrect. The correct answer was: {correct_answer}"
+    if is_correct:
+        score =+ 1
+    highscore = 0
+    if score > highscore:
+        highscore = score
+
+    # Generate new question
+    question_type = random.choice(['type', 'ability'])
+    selected_pokemon = random.choice(list(everypokemon.values()))
+
+    if question_type == 'type':
+        new_question = f"What is {selected_pokemon['name']}'s primary type?"
+        new_correct_answer = selected_pokemon['types'][0].capitalize()
     else:
-        result = f"Incorrect. The correct answer was {correct_answer}."
-    
-    return render_template("answer.html", result=result, question=request.form["question"], pokemon=request.form["pokemon"])
+        new_question = f"What is {selected_pokemon['name']}'s first ability?"
+        new_correct_answer = selected_pokemon['abilities'][0].capitalize().replace('-', ' ')
+
+    return render_template(
+        "index.html",
+        question=new_question,
+        correct_answer=new_correct_answer,
+        pokemon=selected_pokemon,
+        feedback=feedback,
+        score=score,
+        highscore=highscore
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)

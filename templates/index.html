@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokémon Trivia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    {% if feedback %}
+        <p style="color: green; font-weight: bold;">{{ feedback }}</p>
+    {% endif %}
     <h1>{{ question }}</h1>
     <form action="/answer" method="POST">
         <input type="text" name="answer" required>
