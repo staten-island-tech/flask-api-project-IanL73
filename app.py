@@ -40,6 +40,8 @@ def index():
 
     return render_template("index.html", question=question, pokemon=selected_pokemon, correct_answer=correct_answer)
 
+score = 0
+highscore = 0
 @app.route("/answer", methods=["POST"])
 def answer():
     user_answer = request.form['answer']
@@ -49,11 +51,14 @@ def answer():
 
     is_correct = user_answer.strip().lower() == correct_answer.strip().lower()
     feedback = "Correct!" if is_correct else f"Incorrect. The correct answer was: {correct_answer}"
+    score.value
+    highscore.value
     if is_correct:
-        score =+ 1
-    highscore = 0
-    if score > highscore:
-        highscore = score
+        score.value =+ 1
+        if score.value > highscore.value:
+            highscore = score.value
+        print(f'score: {score.value}')
+        print(f'high: {highscore.value}')
 
     # Generate new question
     question_type = random.choice(['type', 'ability'])
