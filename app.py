@@ -8,6 +8,9 @@ app = Flask(__name__)
 response = requests.get("https://pokeapi.co/api/v2/pokemon?limit=151")
 data = response.json()
 
+score = 0
+highscore = 0
+
 everypokemon = {}
 for pokemon in data['results']:
     name = pokemon['name']
@@ -28,7 +31,7 @@ for pokemon in data['results']:
 @app.route("/")
 def index():
     # Randomly choose a Pokémon and a trivia question
-    question_type = random.choice(['type', 'ability'])
+    question_type = random.choice(['type'])
     selected_pokemon = random.choice(list(everypokemon.values()))
     
     if question_type == 'type':
@@ -40,10 +43,10 @@ def index():
 
     return render_template("index.html", question=question, pokemon=selected_pokemon, correct_answer=correct_answer)
 
-score = 0
-highscore = 0
 @app.route("/answer", methods=["POST"])
 def answer():
+    global score
+    global highscore
     user_answer = request.form['answer']
     question = request.form['question']
     correct_answer = request.form['correct_answer']
@@ -51,17 +54,19 @@ def answer():
 
     is_correct = user_answer.strip().lower() == correct_answer.strip().lower()
     feedback = "Correct!" if is_correct else f"Incorrect. The correct answer was: {correct_answer}"
-    score.value
-    highscore.value
     if is_correct:
-        score.value =+ 1
-        if score.value > highscore.value:
-            highscore = score.value
-        print(f'score: {score.value}')
-        print(f'high: {highscore.value}')
+        score =+ 1
+        if score > highscore:
+            highscore = score
+        print(f'score: {score}')
+        print(f'high: {highscore}')
+    else:
+        score = 0
+        print(f'score: {score}')
+        print(f'high: {highscore}')
 
     # Generate new question
-    question_type = random.choice(['type', 'ability'])
+    question_type = random.choice(['type'])
     selected_pokemon = random.choice(list(everypokemon.values()))
 
     if question_type == 'type':
